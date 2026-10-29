@@ -9,7 +9,9 @@ from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
+from sentinelforge import platform
 from sentinelforge.engine import DEMO_EVENTS, SecurityEvent, analyze, evidence_digest
+from sentinelforge.identity import tenant_identity
 
 app = FastAPI(title="SentinelForge Continuum", version="0.1.0")
 
@@ -48,3 +50,33 @@ def analyze_events(payload: AnalysisRequest):
 @app.get("/", include_in_schema=False)
 def dashboard():
     return FileResponse(Path(__file__).with_name("dashboard.html"))
+
+
+@app.post("/api/v1/secure/analyze")
+def secure_analyze(payload: AnalysisRequest, tenant: str = Depends(tenant_identity)):
+    report = analyze(payload.events)
+    digest = evidence_digest(report)
+    identifier = platform.save_report(tenant, report, digest)
+    return {"report_id": identifier, "sha256": digest, **report}
+
+
+@app.get("/api/v1/secure/reports")
+def secure_reports(tenant: str = Depends(tenant_identity)):
+    return {"reports": platform.reports(tenant)}
+
+
+class CaseRequest(BaseModel):
+    report_id: str = Field(min_length=36, max_length=36)
+
+
+@app.post("/api/v1/secure/cases")
+def secure_case(payload: CaseRequest, tenant: str = Depends(tenant_identity)):
+    identifier = platform.create_case(tenant, payload.report_id)
+    if identifier is None:
+        raise HTTPException(status_code=404, detail="Report not found")
+    return {"case_id": identifier, "status": "open"}
+
+
+@app.get("/api/v1/secure/cases")
+def secure_cases(tenant: str = Depends(tenant_identity)):
+    return {"cases": platform.cases(tenant)}
