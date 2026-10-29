@@ -34,9 +34,15 @@ def current_principal(claims: Annotated[dict, Depends(oidc_claims)]) -> Principa
     return principal_from_claims(claims)
 
 
+ROLE_LEVEL = {"viewer": 1, "analyst": 2, "admin": 3}
+
+
 def require_role(required: str):
+    required_level = ROLE_LEVEL[required]
+
     def dependency(principal: Annotated[Principal, Depends(current_principal)]) -> Principal:
-        if required not in principal.roles and "admin" not in principal.roles:
+        level = max((ROLE_LEVEL.get(role, 0) for role in principal.roles), default=0)
+        if level < required_level:
             raise HTTPException(status_code=403, detail="Insufficient role")
         return principal
 
