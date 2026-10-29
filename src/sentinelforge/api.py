@@ -10,7 +10,9 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 from sentinelforge import platform
+from sentinelforge.compliance import assess
 from sentinelforge.engine import DEMO_EVENTS, SecurityEvent, analyze, evidence_digest
+from sentinelforge.persistence import create_case, list_cases
 from sentinelforge.identity import tenant_identity
 
 app = FastAPI(title="SentinelForge Continuum", version="0.1.0")
@@ -80,3 +82,23 @@ def secure_case(payload: CaseRequest, tenant: str = Depends(tenant_identity)):
 @app.get("/api/v1/secure/cases")
 def secure_cases(tenant: str = Depends(tenant_identity)):
     return {"cases": platform.cases(tenant)}
+
+
+class EvidenceRequest(BaseModel):
+    evidence: dict[str, list[str]]
+
+
+@app.post("/api/v1/compliance/assess", dependencies=[Depends(require_key)])
+def compliance_assessment(payload: EvidenceRequest):
+    return assess(payload.evidence)
+
+
+@app.post("/api/v1/cases", dependencies=[Depends(require_key)])
+def save_case(payload: AnalysisRequest):
+    report = analyze(payload.events)
+    return {"case_id": create_case("demo", report), "findings": report["findings"]}
+
+
+@app.get("/api/v1/cases", dependencies=[Depends(require_key)])
+def cases():
+    return {"cases": list_cases("demo")}
