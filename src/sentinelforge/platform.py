@@ -76,13 +76,28 @@ def audit(tenant: str, actor: str, action: str, object_id: str) -> str:
         return _audit(db, tenant, actor, action, object_id)
 
 
-def save_report(tenant: str, actor: str, report: dict, digest: str) -> str:
+def save_report(
+    tenant: str,
+    actor_or_report: str | dict,
+    report_or_digest: dict | str,
+    digest: str | None = None,
+) -> str:
+    if digest is None:
+        actor = "legacy"
+        report = actor_or_report
+        resolved_digest = report_or_digest
+    else:
+        actor = actor_or_report
+        report = report_or_digest
+        resolved_digest = digest
+    if not isinstance(actor, str) or not isinstance(report, dict) or not isinstance(resolved_digest, str):
+        raise TypeError("Invalid report arguments")
     identifier = str(uuid4())
     with connection() as db:
         db.execute(
             "INSERT INTO secure_reports "
             "(id,tenant,actor,created_at,digest,body) VALUES (?,?,?,?,?,?)",
-            (identifier, tenant, actor, now(), digest, json.dumps(report)),
+            (identifier, tenant, actor, now(), resolved_digest, json.dumps(report)),
         )
         _audit(db, tenant, actor, "report_created", identifier)
     return identifier
@@ -98,18 +113,27 @@ def reports(tenant: str) -> list[dict]:
     return [dict(row) for row in rows]
 
 
-def create_case(tenant: str, actor: str, report_id: str) -> str | None:
+def create_case(
+    tenant: str, actor_or_report_id: str, report_id: str | None = None
+) -> str | None:
+    if report_id is None:
+        actor = "legacy"
+        resolved_report_id = actor_or_report_id
+    else:
+        actor = actor_or_report_id
+        resolved_report_id = report_id
     identifier = str(uuid4())
     with connection() as db:
         found = db.execute(
-            "SELECT 1 FROM secure_reports WHERE id=? AND tenant=?", (report_id, tenant)
+            "SELECT 1 FROM secure_reports WHERE id=? AND tenant=?",
+            (resolved_report_id, tenant),
         ).fetchone()
         if not found:
             return None
         db.execute(
             "INSERT INTO secure_cases "
             "(id,tenant,actor,report_id,status,created_at) VALUES (?,?,?,?,?,?)",
-            (identifier, tenant, actor, report_id, "open", now()),
+            (identifier, tenant, actor, resolved_report_id, "open", now()),
         )
         _audit(db, tenant, actor, "case_created", identifier)
     return identifier
