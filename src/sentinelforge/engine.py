@@ -4,10 +4,10 @@ This is a deterministic, synthetic-data prototype, not an autonomous SOC.
 """
 from __future__ import annotations
 
-from collections import Counter, defaultdict
+import json
+from collections import defaultdict
 from datetime import datetime, timezone
 from hashlib import sha256
-import json
 from math import log1p
 
 from pydantic import BaseModel, Field
