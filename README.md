@@ -1,6 +1,25 @@
 # SentinelForge Continuum
 
+![SentinelForge dashboard preview](docs/images/sentinelforge-dashboard.svg)
+
+## Executive summary
+SentinelForge Continuum is an enterprise-style defensive cybersecurity and continuous-compliance prototype built to demonstrate security engineering, cloud monitoring, explainable detections, OIDC tenant isolation, role-based access control, incident case workflows, auditability, and evidence-oriented compliance analysis. It accepts synthetic or exported security findings, normalizes them into a common event model, generates analyst-review findings, persists tenant-scoped investigation records, and exposes a browser dashboard plus secured APIs.
+
+**Portfolio value:** demonstrates backend engineering, cybersecurity architecture, cloud-security normalization, authentication/authorization, API design, persistence, Docker, automated CI, and security-focused testing in one project.
+
 An unclassified, **synthetic-data defensive cybersecurity and compliance intelligence prototype**. Provides an explainable detection engine, bounded security-event analysis API, immutable-input SHA-256 evidence digests, and a browser dashboard.
+
+## Architecture
+
+![SentinelForge architecture](docs/images/sentinelforge-architecture.svg)
+
+## What this project demonstrates
+- Defensive security-event analytics with explainable rule-based findings.
+- AWS Security Hub, Microsoft Defender for Cloud, and GCP Security Command Center normalization.
+- RS256 OIDC verification with signed tenant claims and viewer/analyst/admin RBAC.
+- Tenant-scoped reports, incident cases, compliance evidence assessments, and chained audit records.
+- Protected metrics, security headers, request-size limits, and prototype rate limiting.
+- Dockerized runtime plus GitHub Actions lint, unit/API tests, and container smoke tests.
 
 ## Quick start
 
