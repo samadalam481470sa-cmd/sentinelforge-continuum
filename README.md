@@ -1,2 +1,57 @@
-# sentinelforge-continuum
-Advanced AI-powered cybersecurity and continuous compliance platform for defense contractors, fintech infrastructure, and enterprise cloud environments. Features behavioral threat detection, zero-trust access controls, security analytics, automated evidence collection, and distributed cloud monitoring.
+# SentinelForge Continuum
+
+An unclassified, **synthetic-data defensive cybersecurity and compliance intelligence prototype**. Provides an explainable detection engine, bounded security-event analysis API, immutable-input SHA-256 evidence digests, and a browser dashboard.
+
+## Quick start
+
+```bash
+docker compose up --build
+# Dashboard: http://localhost:8000
+# API docs: http://localhost:8000/docs
+```
+
+To test locally:
+
+```bash
+python -m pip install -e ".[dev]"
+ruff check src tests
+pytest -q
+```
+
+## Endpoints
+- `GET /health`: health status
+- `GET /api/v1/demo`: fictional events and explanation-backed findings
+- `POST /api/v1/analyze`: API-key-protected analysis of up to 10,000 events
+- `GET /`: static SOC demonstration dashboard
+
+Configure `SENTINELFORGE_API_KEY` with a securely generated secret of at least 24 characters before calling the ingestion API:
+
+```bash
+export SENTINELFORGE_API_KEY='replace-with-strong-random-secret'
+curl -X POST localhost:8000/api/v1/analyze \
+  -H "X-API-Key: $SENTINELFORGE_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"events":[]}'
+```
+
+## Detection models
+- Failed-login bursts: five or more failed logins by the same actor and source IP within ten minutes.
+- Large outbound transfers: successful outbound transfers of 100 MB or greater.
+- Reproducible, interpretable scoring with explicit rule IDs and event identifiers.
+
+No autonomous blocking, offensive activity, production claims or live customer data is included.
+
+## Security and limitations
+The demo endpoints are deliberately public. Analysis requires an API key but does **not** yet offer multi-tenant OIDC, RBAC, rate limiting, secure storage, immutable logging, SIEM connectors, real model calibration, certification or security assessment. Do **not** expose the demo service to the Internet or ingest regulated/controlled data. Digest hashes alone are not proof of provenance.
+
+## Roadmap
+- [x] Defensive event validation and explainable detections
+- [x] API-key protected analysis, static dashboard and tests
+- [x] Docker container and GitHub Actions
+- [ ] OIDC identity, authorization and tenant separation
+- [ ] Persistent event stream, suppression and case workflow
+- [ ] Evidence collectors and auditable compliance mappings
+- [ ] Cloud monitoring, observability and security hardening
+- [ ] Independent validation and live integrations
+
+This project is a portfolio-quality foundation, **not** a certified SOC or CMMC compliance product.
