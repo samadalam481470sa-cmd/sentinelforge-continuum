@@ -37,7 +37,7 @@ def test_secure_route_enforces_role_and_signed_tenant(tmp_path, monkeypatch):
     with patch("sentinelforge.authorization.oidc_claims", return_value={}):
         pass
     # Dependency override avoids network/JWKS while still exercising role and tenant scoping.
-    from sentinelforge.authorization import current_principal, Principal
+    from sentinelforge.authorization import Principal, current_principal
     app.dependency_overrides[current_principal] = lambda: Principal(
         tenant="tenantA", subject="user", roles=frozenset({"analyst"})
     )
