@@ -39,6 +39,12 @@ def connection():
         CREATE INDEX IF NOT EXISTS cases_tenant ON cases(tenant,created_at);
         CREATE INDEX IF NOT EXISTS audit_tenant ON audit_events(tenant,created_at);
         """)
+        report_columns = {row["name"] for row in db.execute("PRAGMA table_info(reports)")}
+        if "actor" not in report_columns:
+            db.execute("ALTER TABLE reports ADD COLUMN actor TEXT NOT NULL DEFAULT 'legacy'")
+        case_columns = {row["name"] for row in db.execute("PRAGMA table_info(cases)")}
+        if "actor" not in case_columns:
+            db.execute("ALTER TABLE cases ADD COLUMN actor TEXT NOT NULL DEFAULT 'legacy'")
         yield db
         db.commit()
     except Exception:
