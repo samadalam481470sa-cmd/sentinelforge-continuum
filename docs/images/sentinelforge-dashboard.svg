@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111f"/><stop offset="1" stop-color="#10243a"/></linearGradient>
+  <linearGradient id="card" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#12263d"/><stop offset="1" stop-color="#0f1d31"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-opacity=".25"/></filter>
+</defs>
+<rect width="1400" height="820" rx="28" fill="url(#bg)"/>
+<rect x="34" y="30" width="1332" height="760" rx="24" fill="#0b1728" stroke="#28445e"/>
+<text x="76" y="88" fill="#6ef0cd" font-family="Arial" font-size="18" font-weight="700" letter-spacing="2">SENTINELFORGE / CONTINUUM</text>
+<text x="76" y="130" fill="#f0f6ff" font-family="Arial" font-size="36" font-weight="700">Security Operations Intelligence</text>
+<text x="76" y="162" fill="#9fb5ca" font-family="Arial" font-size="17">Explainable detection · tenant-scoped investigations · compliance evidence</text>
+<rect x="1120" y="70" width="190" height="44" rx="22" fill="#173a35" stroke="#2d8c79"/>
+<text x="1215" y="98" text-anchor="middle" fill="#75e8ca" font-family="Arial" font-size="14" font-weight="700">SYNTHETIC DEMO</text>
+
+<g filter="url(#shadow)">
+<rect x="76" y="210" width="280" height="130" rx="18" fill="url(#card)" stroke="#2c4864"/>
+<rect x="380" y="210" width="280" height="130" rx="18" fill="url(#card)" stroke="#2c4864"/>
+<rect x="684" y="210" width="280" height="130" rx="18" fill="url(#card)" stroke="#2c4864"/>
+<rect x="988" y="210" width="322" height="130" rx="18" fill="url(#card)" stroke="#2c4864"/>
+</g>
+<text x="102" y="245" fill="#91a9c0" font-family="Arial" font-size="14">EVENTS ANALYZED</text><text x="102" y="307" fill="#fff" font-family="Arial" font-size="48" font-weight="700">8</text>
+<text x="406" y="245" fill="#91a9c0" font-family="Arial" font-size="14">ACTIVE FINDINGS</text><text x="406" y="307" fill="#fff" font-family="Arial" font-size="48" font-weight="700">2</text>
+<text x="710" y="245" fill="#91a9c0" font-family="Arial" font-size="14">TENANT REPORTS</text><text x="710" y="307" fill="#fff" font-family="Arial" font-size="48" font-weight="700">14</text>
+<text x="1014" y="245" fill="#91a9c0" font-family="Arial" font-size="14">SECURITY POSTURE</text><text x="1014" y="300" fill="#78ebc9" font-family="Arial" font-size="34" font-weight="700">MONITORED</text>
+
+<rect x="76" y="380" width="820" height="338" rx="18" fill="#122238" stroke="#2c4864"/>
+<text x="106" y="424" fill="#f1f6fb" font-family="Arial" font-size="22" font-weight="700">Detection Findings</text>
+<line x1="106" y1="452" x2="865" y2="452" stroke="#314861"/>
+<text x="106" y="486" fill="#879fb6" font-family="Arial" font-size="13">RULE</text><text x="400" y="486" fill="#879fb6" font-family="Arial" font-size="13">SEVERITY</text><text x="540" y="486" fill="#879fb6" font-family="Arial" font-size="13">RISK</text><text x="640" y="486" fill="#879fb6" font-family="Arial" font-size="13">EVIDENCE</text>
+<line x1="106" y1="502" x2="865" y2="502" stroke="#263b51"/>
+<text x="106" y="542" fill="#e8f0f8" font-family="Arial" font-size="16">REPEATED_LOGIN_FAILURES</text><text x="400" y="542" fill="#ffb27b" font-family="Arial" font-size="16">HIGH</text><text x="540" y="542" fill="#fff" font-family="Arial" font-size="16">85</text><text x="640" y="542" fill="#9fb5ca" font-family="Arial" font-size="14">7 correlated events</text>
+<line x1="106" y1="565" x2="865" y2="565" stroke="#263b51"/>
+<text x="106" y="605" fill="#e8f0f8" font-family="Arial" font-size="16">LARGE_OUTBOUND_TRANSFER</text><text x="400" y="605" fill="#ffe08b" font-family="Arial" font-size="16">MEDIUM</text><text x="540" y="605" fill="#fff" font-family="Arial" font-size="16">63.3</text><text x="640" y="605" fill="#9fb5ca" font-family="Arial" font-size="14">500 MB outbound</text>
+<rect x="106" y="647" width="220" height="42" rx="8" fill="#1dbb9b"/><text x="216" y="674" text-anchor="middle" fill="#031814" font-family="Arial" font-size="14" font-weight="700">REFRESH SYNTHETIC EVENTS</text>
+
+<rect x="928" y="380" width="382" height="338" rx="18" fill="#122238" stroke="#2c4864"/>
+<text x="958" y="424" fill="#f1f6fb" font-family="Arial" font-size="22" font-weight="700">Enterprise Controls</text>
+<text x="958" y="470" fill="#7ee8cb" font-family="Arial" font-size="16">✓ OIDC / RS256 identity</text>
+<text x="958" y="510" fill="#7ee8cb" font-family="Arial" font-size="16">✓ Tenant-scoped RBAC</text>
+<text x="958" y="550" fill="#7ee8cb" font-family="Arial" font-size="16">✓ Chained audit records</text>
+<text x="958" y="590" fill="#7ee8cb" font-family="Arial" font-size="16">✓ AWS / Azure / GCP findings</text>
+<text x="958" y="630" fill="#7ee8cb" font-family="Arial" font-size="16">✓ Compliance evidence mapping</text>
+<text x="958" y="674" fill="#9fb5ca" font-family="Arial" font-size="13">Portfolio prototype · not a certification</text>
+</svg>
