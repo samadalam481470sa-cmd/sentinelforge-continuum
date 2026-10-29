@@ -8,7 +8,7 @@ from collections import Counter, defaultdict, deque
 from threading import Lock
 
 from fastapi import HTTPException, Request
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import JSONResponse, PlainTextResponse
 
 _lock = Lock()
 _requests: Counter[tuple[str, int]] = Counter()
@@ -21,9 +21,9 @@ async def security_middleware(request: Request, call_next):
     if content_length:
         try:
             if int(content_length) > maximum:
-                raise HTTPException(status_code=413, detail="Request body too large")
+                return JSONResponse({"detail": "Request body too large"}, status_code=413)
         except ValueError as exc:
-            raise HTTPException(status_code=400, detail="Invalid content length") from exc
+            return JSONResponse({"detail": "Invalid content length"}, status_code=400)
 
     # Coarse per-client limiter for the prototype; production should use gateway-level limits.
     client = request.client.host if request.client else "unknown"
@@ -34,7 +34,7 @@ async def security_middleware(request: Request, call_next):
         while bucket and now - bucket[0] > 60:
             bucket.popleft()
         if len(bucket) >= limit:
-            raise HTTPException(status_code=429, detail="Rate limit exceeded")
+            return JSONResponse({"detail": "Rate limit exceeded"}, status_code=429)
         bucket.append(now)
 
     response = await call_next(request)
