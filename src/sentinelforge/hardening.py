@@ -22,7 +22,7 @@ async def security_middleware(request: Request, call_next):
         try:
             if int(content_length) > maximum:
                 return JSONResponse({"detail": "Request body too large"}, status_code=413)
-        except ValueError as exc:
+        except ValueError:
             return JSONResponse({"detail": "Invalid content length"}, status_code=400)
 
     # Coarse per-client limiter for the prototype; production should use gateway-level limits.
