@@ -70,6 +70,14 @@ def analyze(events: list[SecurityEvent]) -> dict:
                 ))
                 break
 
+    for event in ordered:
+        if event.event_type == "cloud_finding":
+            findings.append(Finding(
+                rule="CLOUD_SECURITY_FINDING", severity="medium",
+                score=55.0, actors=[event.actor], events=[event.event_id],
+                explanation="Cloud security provider emitted a finding for analyst review",
+            ))
+
     for event in outbound:
         findings.append(Finding(
             rule="LARGE_OUTBOUND_TRANSFER", severity="medium",
