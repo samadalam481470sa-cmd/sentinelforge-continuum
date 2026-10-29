@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="700" viewBox="0 0 1400 700">
+<rect width="1400" height="700" rx="28" fill="#08121f"/>
+<text x="70" y="75" fill="#f2f7fb" font-family="Arial" font-size="34" font-weight="700">SentinelForge Continuum — Architecture</text>
+<text x="70" y="110" fill="#9fb3c8" font-family="Arial" font-size="16">Defensive cloud security, tenant authorization, evidence workflows, and auditable case handling</text>
+<g font-family="Arial">
+<rect x="70" y="170" width="240" height="90" rx="16" fill="#12314a" stroke="#2c668b"/><text x="190" y="207" text-anchor="middle" fill="#fff" font-size="19" font-weight="700">Security Sources</text><text x="190" y="235" text-anchor="middle" fill="#9fc2dc" font-size="14">AWS · Azure · GCP · API events</text>
+<rect x="395" y="170" width="240" height="90" rx="16" fill="#14364b" stroke="#2f6b87"/><text x="515" y="207" text-anchor="middle" fill="#fff" font-size="19" font-weight="700">Normalization Layer</text><text x="515" y="235" text-anchor="middle" fill="#9fc2dc" font-size="14">Validated SecurityEvent schema</text>
+<rect x="720" y="170" width="240" height="90" rx="16" fill="#173c3b" stroke="#2f8577"/><text x="840" y="207" text-anchor="middle" fill="#fff" font-size="19" font-weight="700">Detection Engine</text><text x="840" y="235" text-anchor="middle" fill="#9fd8cc" font-size="14">Explainable risk findings</text>
+<rect x="1045" y="170" width="280" height="90" rx="16" fill="#21364b" stroke="#537398"/><text x="1185" y="207" text-anchor="middle" fill="#fff" font-size="19" font-weight="700">Reports / Cases</text><text x="1185" y="235" text-anchor="middle" fill="#a9bfd5" font-size="14">Tenant-scoped investigation state</text>
+<path d="M310 215H395M635 215H720M960 215H1045" stroke="#61d9be" stroke-width="4" fill="none"/>
+
+<rect x="210" y="355" width="270" height="105" rx="16" fill="#17263b" stroke="#405d7c"/><text x="345" y="392" text-anchor="middle" fill="#fff" font-size="19" font-weight="700">OIDC + RBAC</text><text x="345" y="421" text-anchor="middle" fill="#9eb4c9" font-size="14">RS256 · tenant_id · viewer/analyst/admin</text>
+<rect x="565" y="355" width="270" height="105" rx="16" fill="#17263b" stroke="#405d7c"/><text x="700" y="392" text-anchor="middle" fill="#fff" font-size="19" font-weight="700">Compliance Evidence</text><text x="700" y="421" text-anchor="middle" fill="#9eb4c9" font-size="14">AC-2 · AU-6 · IR-4 · SI-4 mapping</text>
+<rect x="920" y="355" width="270" height="105" rx="16" fill="#17263b" stroke="#405d7c"/><text x="1055" y="392" text-anchor="middle" fill="#fff" font-size="19" font-weight="700">Audit + Metrics</text><text x="1055" y="421" text-anchor="middle" fill="#9eb4c9" font-size="14">Hash chain · protected counters</text>
+
+<path d="M345 355V300H1185V260" stroke="#3e718f" stroke-width="3" fill="none"/>
+<path d="M700 355V300" stroke="#3e718f" stroke-width="3" fill="none"/>
+<path d="M1055 355V300" stroke="#3e718f" stroke-width="3" fill="none"/>
+
+<rect x="250" y="535" width="900" height="92" rx="16" fill="#0f2030" stroke="#35516d"/>
+<text x="700" y="570" text-anchor="middle" fill="#75e8ca" font-size="19" font-weight="700">Security Boundaries</text>
+<text x="700" y="598" text-anchor="middle" fill="#a6b8c9" font-size="14">Request size limits · prototype rate limiting · security headers · no autonomous blocking · synthetic demo data</text>
+</g></svg>
