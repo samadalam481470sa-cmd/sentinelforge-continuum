@@ -48,13 +48,19 @@ The demo endpoints are deliberately public. Analysis requires an API key but doe
 - [x] Defensive event validation and explainable detections
 - [x] API-key protected analysis, static dashboard and tests
 - [x] Docker container and GitHub Actions
-- [ ] OIDC identity, authorization and tenant separation
-- [ ] Persistent event stream, suppression and case workflow
-- [ ] Evidence collectors and auditable compliance mappings
-- [ ] Cloud monitoring, observability and security hardening
+- [x] OIDC identity, signed tenant claims, and viewer/analyst/admin authorization
+- [x] Tenant-scoped report persistence, case workflow, and chained audit records
+- [x] Evidence-oriented control mappings and auditable compliance assessments
+- [x] AWS Security Hub / Azure Defender / GCP SCC normalization, protected metrics, headers, body/rate guards
 - [ ] Independent validation and live integrations
 
 This project is a portfolio-quality foundation, **not** a certified SOC or CMMC compliance product.
 
 ## Authenticated investigation workflow (new)
-Set `SENTINELFORGE_OIDC_ISSUER`, `SENTINELFORGE_OIDC_AUDIENCE`, and `SENTINELFORGE_OIDC_JWKS_URL` to a trusted identity provider's configuration. Bearer tokens must be RS256-signed and include a trusted `tenant_id` claim. Routes: `POST /api/v1/secure/analyze`, `GET /api/v1/secure/reports`, `POST /api/v1/secure/cases`, `GET /api/v1/secure/cases`. SQLite persistence defaults to `/tmp/sentinelforge.db`; set `SENTINELFORGE_DB_PATH` to a writable durable volume path. These are development-only integrations. Real authorization policies, role permissions, rate limiting, SIEM/cloud connectors, compliance mappings, audit immutability, backup/restore, security review, and production-grade database operations remain outstanding. Do not store customer or controlled data in this prototype.
+Set `SENTINELFORGE_OIDC_ISSUER`, `SENTINELFORGE_OIDC_AUDIENCE`, and `SENTINELFORGE_OIDC_JWKS_URL` to a trusted identity provider's configuration. Bearer tokens must be RS256-signed and include a trusted `tenant_id` claim. Routes: `POST /api/v1/secure/analyze`, `GET /api/v1/secure/reports`, `POST /api/v1/secure/cases`, `GET /api/v1/secure/cases`. SQLite persistence defaults to `/tmp/sentinelforge.db`; set `SENTINELFORGE_DB_PATH` to a writable durable volume path. These are development-only integrations. OIDC role enforcement, cloud finding normalization, compliance mappings, chained local audit records, protected metrics, and prototype HTTP guards are implemented. Production still requires identity-provider integration testing, gateway/WAF controls, centralized SIEM transport, a production database, backup/restore exercises, tamper-resistant external audit storage, secret rotation, load testing, and independent security review. Do not store customer or controlled data in this prototype.
+
+
+## Enterprise security API
+OIDC-secured routes derive the tenant exclusively from the verified `tenant_id` token claim and apply `viewer`, `analyst`, or `admin` role hierarchy. Analysts can analyze native events, normalize AWS Security Hub / Microsoft Defender for Cloud / GCP Security Command Center findings, create cases, and assess control evidence. Viewers can inspect tenant reports, cases, and audit metadata. `GET /metrics` is disabled unless `SENTINELFORGE_METRICS_TOKEN` is set.
+
+These integrations accept exported provider findings; they do not automatically connect to a customer's cloud account or claim that a control is effective. The SQLite audit hash chain is tamper-evident only within the local prototype and is not immutable external storage.
