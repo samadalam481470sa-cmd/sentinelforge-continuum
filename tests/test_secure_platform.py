@@ -4,10 +4,10 @@ import pytest
 from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
+from sentinelforge import platform
 from sentinelforge.api import app
 from sentinelforge.authorization import Principal, current_principal
 from sentinelforge.identity import oidc_claims
-from sentinelforge import platform
 
 client = TestClient(app)
 
